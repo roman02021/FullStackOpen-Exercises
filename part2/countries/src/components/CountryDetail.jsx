@@ -12,10 +12,11 @@ const CountryDetail = ({
     lon,
 }) => {
     const [weather, setWeather] = useState();
+    const [imgUrl, setImgUrl] = useState("");
     useEffect(() => {
         axios
             .get(
-                `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${
+                `https://api.openweathermap.org/data/2.5/weather?q=${capital}&units=metric&appid=${
                     import.meta.env.VITE_WEATHER_API_KEY
                 }`
             )
@@ -23,7 +24,6 @@ const CountryDetail = ({
     }, []);
     return (
         <div>
-            {weather}
             <h1>{name}</h1>
             <p>capital {capital}</p>
             <p>area {area}</p>
@@ -34,6 +34,16 @@ const CountryDetail = ({
                 ))}
             </ul>
             <img src={flag} alt={alt} />
+            {weather && (
+                <>
+                    <h2>Weather in ${capital}</h2>
+                    <p>temperature {weather.main.temp} Celsius</p>
+                    <img
+                        src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                    ></img>
+                    <p>wind {weather.wind.speed} m/s</p>
+                </>
+            )}
         </div>
     );
 };
