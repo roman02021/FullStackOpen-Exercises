@@ -1,15 +1,14 @@
-import React from 'react';
-
-const Persons = ({ filteredPersons }) => {
-  return (
-    <ul>
-      {filteredPersons.map((person) => (
-        <li key={person.name}>
-          {person.name} {person.number}
-        </li>
-      ))}
-    </ul>
-  );
+const Persons = ({ filteredPersons, deletePerson }) => {
+    return (
+        <ul>
+            {filteredPersons.map((person) => (
+                <li key={person.id}>
+                    {person.name} {person.number}{" "}
+                    <button onClick={() => deletePerson(person)}>DELETE</button>
+                </li>
+            ))}
+        </ul>
+    );
 };
 
 export default Persons;
